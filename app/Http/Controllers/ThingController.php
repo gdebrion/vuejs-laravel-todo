@@ -41,7 +41,7 @@ class ThingController extends Controller
      */
     public function show(Thing $thing)
     {
-        //
+        return new ThingResource($thing);
     }
 
     /**
@@ -53,7 +53,10 @@ class ThingController extends Controller
      */
     public function update(Request $request, Thing $thing)
     {
-        //
+        $thing->title = $request->title;
+        $thing->save();
+
+        return new ThingResource($thing);
     }
 
     /**

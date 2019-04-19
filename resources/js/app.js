@@ -27,9 +27,11 @@ Vue.use(Vuex);
 Vue.use(VueRouter);
 
 Vue.component('navbar', require('./components/Navbar.vue').default);
-const TodoList = Vue.component('todolist', require('./components/Todolist.vue').default);
-const AddForm = Vue.component('add-form', require('./components/AddForm.vue').default);
 Vue.component('pagination', require('./components/Pagination.vue').default);
+
+const TodoList = Vue.component('todolist', require('./components/Todolist.vue').default);
+const AddForm  = Vue.component('add-form', require('./components/AddForm.vue').default);
+const EditForm = Vue.component('add-form', require('./components/EditForm.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -80,13 +82,25 @@ const store = new Vuex.Store({
                     router.push('/');
                 })  
                 .catch(err => console.error(err));
+        },
+        updateThing(state, thing) {
+            axios.put(`/api/things/${thing.id}`, { title: thing.title})
+                .then(res => {
+                    this.commit('fetchThings');
+                    router.push('/');
+                })  
+                .catch(err => console.error(err));
         }
+    },
+    getters: {
+        
     }
 });
 
 const routes = [
     {path: '/', component: TodoList},
-    {path: '/add', component: AddForm}
+    {path: '/add', component: AddForm},
+    {path: '/edit/:id', component: EditForm}
 ];
 
 const router = new VueRouter({

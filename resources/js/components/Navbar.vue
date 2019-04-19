@@ -17,7 +17,7 @@
 export default {
     computed: {
         onForm() {
-            return this.$route.path == '/add';
+            return this.$route.path == '/add' || this.$route.path.substr(0, 5) == '/edit';
         }
     },
     methods: {

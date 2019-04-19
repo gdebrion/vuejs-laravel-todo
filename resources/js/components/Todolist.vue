@@ -15,7 +15,7 @@
                     </div>
                     <div class="col-md-3 text-right">
                         <div class="btn-group">
-                            <button class="btn btn-link text-secondary">Éditer</button>
+                            <button class="btn btn-link text-secondary" @click="editThing(thing.id)">Éditer</button>
                             <button class="btn btn-link text-danger" @click="deleteThing(thing.id)">Supprimer</button>
                         </div>
                     </div>
@@ -48,6 +48,9 @@
         methods: {            
             deleteThing(id) {
                 this.$store.commit('deleteThing', id);
+            },
+            editThing(id) {
+                this.$router.push(`/edit/${id}`);
             }
         }
     }
