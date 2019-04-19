@@ -1,0 +1,27 @@
+<template>
+    <nav class="navbar navbar-dark bg-primary sticky-top mb-4 navbar-expand-md">
+        <div class="container">
+            <router-link to="/" exact class="navbar-brand">To-do List avec <strong>VueJS</strong> et <strong>Laravel</strong></router-link>
+
+            <div class="collapse navbar-collapse justify-content-end">
+                <div class="navbar-nav">
+                    <router-link to="/add" active-class="active" class="nav-link nav-item" v-show="!onForm">Ajouter une tâche</router-link>
+                    <a class="nav-link nav-item" v-show="onForm">Sauvegarder</a>
+                </div>
+            </div>
+        </div>
+    </nav>    
+</template>
+ 
+<script>
+export default {
+    computed: {
+        onForm() {
+            return this.$route.path == '/add';
+        }
+    },
+    methods: {
+        
+    }
+}
+</script>
