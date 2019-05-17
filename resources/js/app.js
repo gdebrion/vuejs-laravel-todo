@@ -21,7 +21,8 @@ const EditForm = Vue.component('add-form', require('./components/EditForm.vue').
 const store = new Vuex.Store({
     state: {
         things: [],
-        pagination: {}
+        pagination: {},
+        errors: []
     },
     mutations: {
         fetchThings(state, url) {
@@ -60,7 +61,9 @@ const store = new Vuex.Store({
                     this.commit('fetchThings');
                     router.push('/');
                 })  
-                .catch(err => console.error(err));
+                .catch(err => {
+                    this.state.errors = err.response.data.errors;
+                });
         },
         updateThing(state, thing) {
             axios.put(`/api/things/${thing.id}`, { title: thing.title})

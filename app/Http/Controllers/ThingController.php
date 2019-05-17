@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AddThingRequest;
 use App\Http\Resources\ThingResource;
 use App\Thing;
 use App\User;
@@ -27,10 +28,10 @@ class ThingController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(AddThingRequest $request)
     {
         $thing          = new Thing;
-        $thing->user_id = 1;
+        $thing->user_id = Auth::user()->id;
         $thing->title   = $request->title;
         $thing->save();
 

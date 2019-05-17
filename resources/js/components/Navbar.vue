@@ -6,7 +6,7 @@
             <div class="collapse navbar-collapse justify-content-end">
                 <div class="navbar-nav">
                     <router-link to="/add" active-class="active" class="nav-link nav-item" v-show="!onForm">Ajouter une tâche</router-link>
-                    <a class="nav-link nav-item" v-show="onForm">Sauvegarder</a>
+                    <a class="nav-link nav-item" v-show="onForm" @click="save">Sauvegarder</a>
                 </div>
             </div>
         </div>
@@ -21,7 +21,9 @@ export default {
         }
     },
     methods: {
-        
+        save() {
+            alert('save');
+        }
     }
 }
 </script>

@@ -1774,6 +1774,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -1783,6 +1784,12 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     addTask: function addTask() {
       this.$store.commit('addThing', this.title);
+    },
+    getTitleError: function getTitleError() {
+      return this.$store.state.errors.title != undefined ? this.$store.state.errors.title[0] : "";
+    },
+    hasTitleError: function hasTitleError() {
+      return this.$store.state.errors.title != undefined;
     }
   }
 });
@@ -1880,7 +1887,11 @@ __webpack_require__.r(__webpack_exports__);
       return this.$route.path == '/add' || this.$route.path.substr(0, 5) == '/edit';
     }
   },
-  methods: {}
+  methods: {
+    save: function save() {
+      alert('save');
+    }
+  }
 });
 
 /***/ }),
@@ -37319,6 +37330,7 @@ var render = function() {
               }
             ],
             staticClass: "form-control",
+            class: { "is-invalid": _vm.hasTitleError() && _vm.title != "" },
             attrs: {
               type: "text",
               id: "title",
@@ -37333,7 +37345,11 @@ var render = function() {
                 _vm.title = $event.target.value
               }
             }
-          })
+          }),
+          _vm._v(" "),
+          _c("div", { staticClass: "invalid-feedback" }, [
+            _vm._v(_vm._s(_vm.getTitleError()))
+          ])
         ])
       ]
     )
@@ -37488,7 +37504,8 @@ var render = function() {
                           expression: "onForm"
                         }
                       ],
-                      staticClass: "nav-link nav-item"
+                      staticClass: "nav-link nav-item",
+                      on: { click: _vm.save }
                     },
                     [_vm._v("Sauvegarder")]
                   )
@@ -53557,7 +53574,8 @@ var EditForm = Vue.component('add-form', __webpack_require__(/*! ./components/Ed
 var store = new vuex__WEBPACK_IMPORTED_MODULE_0__["default"].Store({
   state: {
     things: [],
-    pagination: {}
+    pagination: {},
+    errors: []
   },
   mutations: {
     fetchThings: function fetchThings(state, url) {
@@ -53623,7 +53641,7 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_0__["default"].Store({
 
         router.push('/');
       })["catch"](function (err) {
-        return console.error(err);
+        _this3.state.errors = err.response.data.errors;
       });
     },
     updateThing: function updateThing(state, thing) {
