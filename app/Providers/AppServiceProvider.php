@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -13,8 +15,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        setlocale(LC_TIME, config('app.locale'));
-        \Carbon\Carbon::setLocale(config('app.locale'));
+        Schema::defaultStringLength(191);
+
+        setlocale(LC_TIME, config('app.carbon_locale'));
     }
 
     /**
