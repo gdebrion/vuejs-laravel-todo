@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\ThingResource;
 use App\Thing;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ThingController extends Controller
 {
@@ -15,7 +17,8 @@ class ThingController extends Controller
      */
     public function index()
     {
-        return ThingResource::collection(Thing::orderBy('created_at', 'DESC')->paginate(5));
+        $user = Auth::user();
+        return ThingResource::collection(Thing::where('user_id', $user->id)->orderBy('created_at', 'DESC')->paginate(5));
     }
 
     /**
@@ -26,8 +29,9 @@ class ThingController extends Controller
      */
     public function store(Request $request)
     {
-        $thing        = new Thing;
-        $thing->title = $request->title;
+        $thing          = new Thing;
+        $thing->user_id = 1;
+        $thing->title   = $request->title;
         $thing->save();
 
         return new ThingResource($thing);

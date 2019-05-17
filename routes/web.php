@@ -1,5 +1,4 @@
 <?php
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,6 +10,9 @@
 |
  */
 
-Route::get('/{any}', function () {
+Auth::routes();
+Route::get('/logout', 'Auth\LoginController@logout');
+
+Route::middleware('auth')->get('/{any}', function () {
     return view('app');
 })->where('any', '.*');

@@ -15,4 +15,4 @@
 //     return $request->user();
 // });
 
-Route::resource('things', 'ThingController');
+Route::middleware('auth:api')->resource('things', 'ThingController');
