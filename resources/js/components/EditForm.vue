@@ -20,6 +20,11 @@ export default {
     created() {
         this.fetchThing();
     },
+    mounted() {
+        this.$root.$on('saveForm', () => {
+            this.updateTask();
+        });
+    },
     methods: {
         updateTask() {
             this.$store.commit('updateThing', {id: this.id, title: this.title});

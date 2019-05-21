@@ -17,6 +17,11 @@ export default {
             title: ""
         }
     },
+    mounted() {
+        this.$root.$on('saveForm', () => {
+            this.addTask();
+        });
+    },
     methods: {
         addTask() {
             this.$store.commit('addThing', this.title);
@@ -27,6 +32,7 @@ export default {
         hasTitleError() {
             return this.$store.state.errors.title != undefined;
         }
-    }
+    },
+   
 }
 </script>

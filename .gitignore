@@ -10,3 +10,5 @@ Homestead.yaml
 npm-debug.log
 yarn-error.log
 VueJS.code-workspace
+public/js/app.js
+public/css/app.css
